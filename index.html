@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Countdown to 2026 ✨</title>
+<style>
+body{
+  margin:0;height:100vh;font-family:Arial,sans-serif;color:white;text-align:center;display:flex;justify-content:center;align-items:center;
+  background:linear-gradient(135deg,#0b132b,#1c2541);
+}
+.box{
+  background:rgba(0,0,0,.45);padding:40px;border-radius:20px;max-width:520px;
+  text-align:center;
+}
+#count{font-size:60px;color:#FFD700;margin:20px 0;}
+.hidden{display:none;}
+button{
+  margin-top:20px;padding:12px 24px;border-radius:25px;border:none;background:#FFD700;color:#0b132b;font-weight:bold;
+  cursor:pointer;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 10px #FFD700;}
+  50%{box-shadow:0 0 25px #FFD700;}
+  100%{box-shadow:0 0 10px #FFD700;}
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+<div id="timer">
+<h1>Almost 2026 ✨</h1>
+<p>Just breathe and enjoy 😌</p>
+<div id="count">10</div>
+</div>
+
+<div id="after" class="hidden">
+<h1>Welcome 🤍</h1>
+<button onclick="goStart()">Start your journey</button>
+</div>
+</div>
+
+<script>
+let t=10;
+const c=document.getElementById("count");
+const timer=document.getElementById("timer");
+const after=document.getElementById("after");
+const piano = new Audio("piano.mp3");
+piano.loop = true;
+
+const interval=setInterval(()=>{
+ t--;
+ c.textContent=t;
+ if(t<=0){
+   clearInterval(interval);
+   timer.style.display="none";
+   after.classList.remove("hidden");
+ }
+},1000);
+
+function goStart(){
+  piano.volume=0.3;
+  piano.play().catch(e=>console.log("Audio blocked"));
+  window.location.href="start.html";
+}
+</script>
+
+</body>
+</html>

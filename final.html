@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Special for Yuli 🤍</title>
+<style>
+body{margin:0;height:100vh;display:flex;justify-content:center;align-items:center;font-family: 'Segoe UI', sans-serif;color:white;text-align:center;overflow:hidden;
+background: linear-gradient(-45deg,#6a11cb,#2575fc,#ff6f61,#ffb347);
+background-size:400% 400%;
+animation: gradientBG 15s ease infinite;}
+@keyframes gradientBG{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.box{background: rgba(255,255,255,0.15);backdrop-filter: blur(12px);padding:40px;border-radius:25px;max-width:600px;box-shadow: 0 0 50px rgba(0,0,0,0.3);position:relative;z-index:1;}
+#text{font-size:20px;line-height:1.6;min-height:140px;opacity:0;transition: opacity 1s;}
+button{margin-top:30px;padding:12px 30px;border-radius:30px;border:none;background:#FFD700;color:#0b132b;font-size:16px;font-weight:bold;cursor:pointer;}
+button:hover{opacity:0.9;}
+canvas{position:fixed;top:0;left:0;z-index:0;}
+</style>
+</head>
+<body>
+
+<canvas id="fireworks"></canvas>
+<div class="box">
+  <div id="text"></div>
+  <button id="nextBtn">Next</button>
+</div>
+
+<audio id="piano" src="piano.mp3" loop></audio>
+
+<script>
+const messages=[
+  "Hey Yuli… just wanted to say 💛",
+  "You’ve been on my mind a lot lately, in the best way possible.",
+  "I hope this little website made you smile.",
+  "You’re truly one of a kind, coolest person ever.",
+  "Here’s to more laughs, more Cairoki, and more memories together 🤍"
+];
+
+let i=0;
+const text=document.getElementById("text");
+const piano=document.getElementById("piano");
+const btn=document.getElementById("nextBtn");
+text.textContent = messages[i];
+text.style.opacity=1;
+
+btn.addEventListener("click",()=>{
+  if(i===0){piano.volume=0.3;piano.play();}
+  i++;
+  if(i<messages.length){
+    text.style.opacity=0;
+    setTimeout(()=>{
+      text.textContent=messages[i];
+      text.style.opacity=1;
+    },400);
+  }
+  else{
+    text.textContent="Happy New Year 2026, Yuli! 🎉";
+    text.style.opacity=1;
+    startFireworks();
+    btn.style.display="none";
+  }
+});
+
+// --- Fireworks JS ---
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let fireworks=[];
+
+class Particle{
+  constructor(x,y,color){
+    this.x=x; this.y=y; this.color=color;
+    this.vx=(Math.random()-0.5)*6;
+    this.vy=(Math.random()-1)*8;
+    this.alpha=1; this.size=Math.random()*3+2;
+  }
+  update(){this.x+=this.vx; this.y+=this.vy; this.vy+=0.05; this.alpha-=0.015;}
+  draw(){ctx.fillStyle=`rgba(${this.color},${this.alpha})`; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill();}
+}
+
+function randomColor(){return `${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)}`;}
+
+function startFireworks(){
+  for(let i=0;i<200;i++){
+    const x=Math.random()*canvas.width;
+    const y=Math.random()*canvas.height/2;
+    fireworks.push(new Particle(x,y,randomColor()));
+  }
+  animate();
+}
+
+function animate(){
+  ctx.fillStyle="rgba(0,0,0,0.1)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  for(let p of fireworks){p.update();p.draw();}
+  fireworks=fireworks.filter(p=>p.alpha>0);
+  if(fireworks.length>0) requestAnimationFrame(animate);
+}
+</script>
+
+</body>
+</html>

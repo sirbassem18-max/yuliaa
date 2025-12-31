@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Our Memories, Yuli 🤍</title>
+<style>
+body{
+  margin:0;height:100vh;display:flex;justify-content:center;align-items:center;font-family:Arial,sans-serif;color:white;text-align:center;overflow:hidden;
+  background: linear-gradient(-45deg,#6a11cb,#2575fc,#ff6f61,#ffb347);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+@keyframes gradientBG{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.box{background: rgba(0,0,0,0.15);backdrop-filter: blur(12px);padding:40px;border-radius:25px;max-width:600px;box-shadow: 0 0 50px rgba(0,0,0,0.3);}
+#msg{margin:20px 0;font-size:20px;min-height:140px;opacity:0;transition: opacity 1s;}
+button{margin-top:20px;padding:12px 26px;border-radius:30px;border:none;background:#FFD700;color:#0b132b;font-weight:bold;cursor:pointer;font-size:16px;}
+button:hover{opacity:0.9;}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h1>Our Memories 🤍</h1>
+<div id="msg"></div>
+<button onclick="nextMessage()">Next</button>
+</div>
+
+<audio id="piano" src="piano.mp3" loop></audio>
+
+<script>
+const messages = [
+  "How can two people be this similar?",
+  "Literally everything… music, movies, art, the way we think.",
+  "Do you remember the first time we talked online?",
+  "When you told me: 'I don’t know what you did to me.'",
+  "Funny thing is… days keep proving that I’m the one who still doesn’t know what you did to me.",
+  "This year was one of the hardest years of my life, but it became a year I’ll never forget.",
+  "Whether we meet in person or not, you’ll always be part of it.",
+  "Do you remember Google Earth? When we imagined ourselves traveling the world together, going everywhere without moving an inch.",
+  "And Cairoki… the most beautiful first day of our 'online life.' I never thought I’d do something like that.",
+  "And we watched Midnight in Paris together 🕛🎬",
+  "But wow… 🤍"
+];
+
+let i = 0;
+const msgBox = document.getElementById("msg");
+const piano = document.getElementById("piano");
+msgBox.textContent = messages[i];
+msgBox.style.opacity = 1;
+
+function nextMessage() {
+  if(i === 0){ piano.volume=0.3; piano.play(); }
+  i++;
+  if(i < messages.length){ 
+    msgBox.style.opacity=0;
+    setTimeout(()=>{
+      msgBox.textContent = messages[i];
+      msgBox.style.opacity=1;
+    }, 400);
+  } else { window.location.href = "care.html"; }
+}
+</script>
+
+</body>
+</html>
+ 

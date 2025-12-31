@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Care for Yuli 🤍</title>
+<style>
+body{
+  margin:0;height:100vh;display:flex;justify-content:center;align-items:center;font-family: 'Segoe UI', sans-serif;color:white;text-align:center;overflow:hidden;
+  background: linear-gradient(-45deg,#ff6f61,#ffb347,#6a82fb,#fc5c7d);
+  background-size:400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+@keyframes gradientBG{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.box{
+  background: rgba(0,0,0,0.15);backdrop-filter: blur(12px);padding:40px;border-radius:25px;max-width:600px;box-shadow: 0 0 50px rgba(0,0,0,0.3);
+}
+#text{font-size:20px;line-height:1.6;min-height:140px;opacity:0;transition: opacity 1s;}
+button{margin-top:30px;padding:12px 30px;border-radius:30px;border:none;background:#FFD700;color:#0b132b;font-size:16px;font-weight:bold;cursor:pointer;}
+button:hover{opacity:0.9;}
+</style>
+</head>
+<body>
+
+<div class="box">
+<div id="text"></div>
+<button onclick="next()">Next</button>
+</div>
+
+<audio id="piano" src="piano.mp3" loop></audio>
+
+<script>
+const messages = [
+  "I hate you so much… btw that means nothing.",
+  "Yuli, you’re still the coolest person I’ve ever met.",
+  "Hun, you deserve the heavens.",
+  "And honestly, I don’t care if you want them or not… haha.",
+  "This page exists just for u, coolest person ever"
+];
+
+let i=0;
+const text = document.getElementById("text");
+const piano=document.getElementById("piano");
+text.textContent = messages[i];
+text.style.opacity = 1;
+
+function next(){
+  if(i===0){piano.volume=0.3;piano.play();}
+  i++;
+  if(i<messages.length){
+    text.style.opacity=0;
+    setTimeout(()=>{
+      text.textContent = messages[i];
+      text.style.opacity=1;
+    },400);
+  } else{
+    window.location.href="final.html";
+  }
+}
+</script>
+
+</body>
+</html>
